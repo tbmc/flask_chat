@@ -1,0 +1,54 @@
+{% extends "template.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block append_head %}
+<style>
+    html, body {
+        height: 100%;
+        width: 100%;
+    }
+    .login-panel {
+        margin-top: 20px;
+    }
+    @media (min-width: 992px) {
+        .login-panel {
+            margin: auto;
+            margin-top: 10%;
+            width: 800px;
+        }
+    }
+</style>
+{% endblock %}
+
+
+{% block body %}
+
+
+
+<div class="login-panel">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Login</div>
+        <div class="panel-body">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for m in messages %}
+                        <div class="alert alert-error">{{ m }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form method="post" action="/login" style="text-align: center;">
+                <label for="pseudo">Choisissez un pseudo</label>
+                <input name="pseudo" id="pseudo" type="text" required style="margin: 0 15px;">
+                <input type="submit" value="Choisir" class="btn btn-success">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+

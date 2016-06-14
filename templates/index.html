@@ -1,10 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "template.html" %}
 
-</body>
-</html>
+{% block title %}
+    Chat
+{% endblock %}
+
+{% block append_head %}
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename="css/main.css") }}">
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="full-height content">
+
+
+        <div class="col-md-3 full-height">
+            <div class="panel panel-primary full-height">
+                <div class="panel-heading">Utilisateurs</div>
+                <div class="panel-body full-height">
+                    <p>Votre pseudo est : <b>{{ pseudo }}</b></p>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 full-height">
+            <div class="panel panel-primary full-height">
+                <div class="panel-heading">Messages</div>
+                <div class="panel-body full-height">
+                    <div class="messages-list">
+
+                    </div>
+                    <div class="message-field">
+                        <textarea placeholder="Entrez votre message ici"></textarea>
+                        <div class="button">
+                            <a href="" class="btn btn-default" onclick="send_message()">Envoyer</a>
+
+                            <input type="checkbox" value="true" id="enterToSend">
+                            <label for="enterToSend">Entrée pour envoyer</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block append_js %}
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+{% endblock %}

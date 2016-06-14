@@ -1,0 +1,50 @@
+
+html, body {
+    height: 100%;
+}
+body {
+    padding: 20px;
+}
+
+@media (min-width: 992px) {
+    .full-height {
+        height: 100%;
+    }
+    .full-height.panel-body {
+        height: calc(100% - 40px);
+    }
+    .full-height.panel {
+        height: calc(100% - 20px);
+    }
+    .messages-list {
+        height: calc(100% - 100px);
+    }
+}
+
+.message-field {
+    height: 100px;
+    padding-top: 10px;
+    border-top: 1px solid lightgray;
+}
+.message-field textarea {
+    resize: none;
+    width: calc(100% - 220px);
+    height: 100%;
+    border: none;
+}
+.message-field textarea:focus {
+    border: none;
+    outline: none;
+}
+.message-field .button {
+    display: inline-block;
+    width: 200px;
+    float: right;
+}
+.message-field .button label {
+    font-weight: normal;
+}
+.message-field a.btn-default {
+    display: block;
+    margin-bottom: 20px;
+}
