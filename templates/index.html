@@ -19,25 +19,45 @@
             <div class="panel panel-primary full-height">
                 <div class="panel-heading">Utilisateurs</div>
                 <div class="panel-body full-height">
-                    <p>Votre pseudo est : <b>{{ pseudo }}</b></p>
+                    <p>Votre pseudo est : &emsp; <b>{{ pseudo }}</b></p>
 
                 </div>
             </div>
         </div>
         <div class="col-md-9 full-height">
             <div class="panel panel-primary full-height">
-                <div class="panel-heading">Messages</div>
+                <div class="panel-heading">
+                    Messages
+                    <div style="float: right; margin-right: 75px;">
+                        Thème :
+                        <div class="btn-group btn-theme">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-xs"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="theme-text">default</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% for t in themes %}
+                                    <li>
+                                        <a href="#" class="theme-click"
+                                           theme-filename="{{ t[1] }}">
+                                            {{ t[0] }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
                 <div class="panel-body full-height">
-                    <div class="messages-list">
+                    <div class="messages-list" id="messages-list">
 
                     </div>
                     <div class="message-field">
-                        <textarea placeholder="Entrez votre message ici"></textarea>
+                        <textarea placeholder="Entrez votre message ici" id="text_message"></textarea>
                         <div class="button">
-                            <a href="" class="btn btn-default" onclick="send_message()">Envoyer</a>
-
-                            <input type="checkbox" value="true" id="enterToSend">
-                            <label for="enterToSend">Entrée pour envoyer</label>
+                            <span class="btn btn-default" id="send_button">Envoyer</span>
                         </div>
                     </div>
                 </div>
@@ -49,5 +69,12 @@
 {% endblock %}
 
 {% block append_js %}
-<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+        window.themes = {
+            list: {{ themes | tojson }},
+            path: "/static/themes/",
+        }
+    </script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="{{ url_for("static", filename="js/main.js") }}" type="text/javascript"></script>
 {% endblock %}

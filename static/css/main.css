@@ -1,4 +1,6 @@
 
+/* Style général */
+
 html, body {
     height: 100%;
 }
@@ -6,19 +8,8 @@ body {
     padding: 20px;
 }
 
-@media (min-width: 992px) {
-    .full-height {
-        height: 100%;
-    }
-    .full-height.panel-body {
-        height: calc(100% - 40px);
-    }
-    .full-height.panel {
-        height: calc(100% - 20px);
-    }
-    .messages-list {
-        height: calc(100% - 100px);
-    }
+.messages-list {
+    height: auto;
 }
 
 .message-field {
@@ -44,7 +35,67 @@ body {
 .message-field .button label {
     font-weight: normal;
 }
-.message-field a.btn-default {
+.message-field span.btn-default {
     display: block;
     margin-bottom: 20px;
 }
+
+
+
+@media (min-width: 992px) {
+    .full-height {
+        height: 100%;
+    }
+    .full-height.panel-body {
+        height: calc(100% - 40px);
+    }
+    .full-height.panel {
+        height: calc(100% - 20px);
+    }
+    .messages-list {
+        height: calc(100% - 100px);
+        max-height: calc(100% - 100px);
+        overflow-y: auto;
+    }
+}
+
+
+
+
+
+
+/* Styles parmis les messages */
+.messages-list p.indication {
+    color: lightgray;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.messages-list p.message span.pseudo {
+    float: left;
+    font-weight: bold;
+    font-size: 1.2em;
+    font-family: "Times New Roman";
+    min-width: 110px;
+}
+.messages-list p.message span.pseudo::after {
+    content: " : ";
+    margin-right: 20px;
+}
+.messages-list p.message span.message {
+    display: block;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    margin-left: 130px;
+
+}
+
+
+
+
+
+
+
+
+
+

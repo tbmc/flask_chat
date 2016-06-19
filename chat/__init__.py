@@ -2,4 +2,4 @@
 from flask import Blueprint
 
 
-socketio = Blueprint("chat", __name__)
+chat = Blueprint("chat", __name__)

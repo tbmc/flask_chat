@@ -1,13 +1,27 @@
 from flask_socketio import emit
-
-from . import socketio
-
+from flask import session
 
 
-@socketio.on("new_message")
-def new_message(msg):
-    pass
+ns = "/chat"
 
-@socketio.route("/chat")
-def chat():
-    pass
+
+def set_all_socket(socketio):
+    @socketio.on("new_user")
+    def joined(data={}):
+        print(data)
+        emit("new_user", {
+            "pseudo": session["pseudo"]
+        }, broadcast=True)
+
+    @socketio.on("message")
+    def new_message(message={}):
+        print(message, type(message))
+        emit("message", {
+            "pseudo": session["pseudo"],
+            "message": message["message"]
+        }, broadcast=True)
+
+
+
+
+
