@@ -79,10 +79,11 @@ $(document).ready(function() {
             css = ls.filename;
             txt = ls.text;
         }else {
-            txt = t[0];
-            css = t[1];
+            var def = t[0];
+            txt = def[0];
+            css = def[1];
         }
-        $("link[link-type='theme']").attr("href", themes.path + css);
+        $("link[id='id_theme']").attr("href", themes.path + css);
         $(".btn-theme span.theme-text").text(txt);
         localStorage['theme'] = JSON.stringify({
             text: txt,

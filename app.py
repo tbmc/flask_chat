@@ -5,7 +5,7 @@ from flask import send_from_directory
 from os.path import join
 from flask import session
 
-from main.__init__ import main
+from main.main import main
 from chat.chat import set_all_socket
 
 
@@ -55,6 +55,6 @@ if __name__ == '__main__':
 
 
 @socketio.on("new_user")
-def truc():
+def truc(a=None, b=None, c=None):
     print("test")
     emit("new_user", {"pseudo": "test"})
