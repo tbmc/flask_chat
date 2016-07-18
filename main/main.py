@@ -1,7 +1,7 @@
 import os
 import re
 
-from flask import Blueprint
+from flask import Blueprint, url_for
 from flask import flash, request, redirect
 from flask import render_template, session
 
@@ -40,7 +40,7 @@ def login():
             b = True
 
     if b:
-        return redirect("/", 200)
+        return redirect("/", 303)
     else:
         flash(u'Il y a une erreur avec le pseudo')
         return render_template("login.html")
