@@ -1,7 +1,7 @@
 import os
 import re
 
-from flask import Blueprint, url_for
+from flask import Blueprint
 from flask import flash, request, redirect
 from flask import render_template, session
 
@@ -22,7 +22,7 @@ def get_themes():
 
 @main.route('/')
 def index():
-    if "pseudo" in session:
+    if "connected" in session and session["connected"]:
         themes = get_themes()
         return render_template("index.html", pseudo=session['pseudo'], themes=themes)
     else:
@@ -35,7 +35,7 @@ def login():
     if request.method == "POST":
         p = request.form["pseudo"]
         if p:
-
+            session['connected'] = True
             session['pseudo'] = p
             b = True
 
@@ -44,3 +44,10 @@ def login():
     else:
         flash(u'Il y a une erreur avec le pseudo')
         return render_template("login.html")
+
+
+@main.route("/logout")
+def logout():
+    session["connected"] = False
+    session["pseudo"] = None
+    return redirect("/", 303)

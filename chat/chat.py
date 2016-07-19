@@ -24,4 +24,3 @@ def set_all_socket(socketio):
 
 
 
-

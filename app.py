@@ -8,6 +8,8 @@ from flask import session
 from main.main import main
 from chat.chat import set_all_socket
 
+from db.db import db_session
+
 
 DEBUG = True
 
@@ -18,7 +20,6 @@ app.register_blueprint(main)
 socketio.init_app(app)
 
 set_all_socket(socketio)
-
 
 
 @app.errorhandler(401)
@@ -33,28 +34,12 @@ def error404(error):
 def send_static(path, filename):
     return send_from_directory(join('static', path), filename)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+"""
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
+"""
 
 if __name__ == '__main__':
     socketio.run(app, debug=DEBUG)
 
-
-@socketio.on("new_user")
-def truc(a=None, b=None, c=None):
-    print("test")
-    emit("new_user", {"pseudo": "test"})

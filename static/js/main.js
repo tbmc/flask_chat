@@ -1,19 +1,65 @@
 
 var socket;
 
+var user_list = {};
+var last_new_user = 0;
+
+function add_user(pseudo) {
+    user_list[pseudo] = {
+        "LastTime": Date.now()
+    };
+}
+function refresh_user(pseudo) {
+    var u = user_list[pseudo];
+    if(u) {
+        u["LastTime"] = Date.now();
+    }else {
+        user_list[pseudo] = {
+            "LastTime": Date.now()
+        };
+    }
+    refresh_user_list();
+}
+
+function refresh_user_list() {
+    var p = $('#id_list_users');
+    var text = "";
+
+    for(var key in user_list) {
+        if(user_list.hasOwnProperty(key)) {
+            var d = user_list[key]["LastTime"];
+            var dif = (Date.now() - d) / 1000;
+            if(dif / 60 < 1) {
+                text += "<li>" + key + "</li>";
+            }else {
+                // On le supprime
+                delete user_list[key];
+            }
+        }
+    }
+
+    p.html(text)
+}
+
 $(document).ready(function() {
     socket = io.connect();
 
     socket.on("connect", function() {
-        socket.emit("new_user", "")
+        socket.emit("new_user", "");
     });
     socket.on("new_user", function(data) {
         // Nouvel utilisateur data.pseudo
         add_indication("Un nouvel utilisateur vient d'entrer dans le salon : <b>" + data.pseudo + "</b>");
+        refresh_user(data.pseudo);
+        if((Date.now() - last_new_user) / 1000 > 15) {
+            last_new_user = Date.now();
+            socket.emit("new_user", "");
+        }
     });
     socket.on("message", function(data) {
         console.log("Nouveau message", data.message);
         add_message(data.pseudo, data.message)
+        refresh_user(data.pseudo);
     });
 
     var text = $("#text_message");
@@ -93,7 +139,25 @@ $(document).ready(function() {
 
     change_theme(null);
 
+
+
+
+
+
+
+    $("#id_logout_button").click(function() {
+        delete localStorage['theme'];
+        window.location.href = "/logout";
+    });
+
+
+
+
+    // Initialisation des tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
 });
+
 
 
 /*

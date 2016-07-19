@@ -17,10 +17,23 @@
 
         <div class="col-md-3 full-height">
             <div class="panel panel-primary full-height">
-                <div class="panel-heading">Utilisateurs</div>
+                <div class="panel-heading">
+                    Utilisateurs
+                    <div style="float: right;">
+                        <button class="btn-xs btn-default" id="id_logout_button"
+                        data-toggle="tooltip" data-placement="bottom"
+                        title="Se déconnecter et supprimer les préférences.">
+                            Déconnexion
+                        </button>
+                    </div>
+                </div>
                 <div class="panel-body full-height">
                     <p>Votre pseudo est : &emsp; <b>{{ pseudo }}</b></p>
+                    <br>
+                    <h4>Utilisateurs en ligne : </h4>
+                    <ul id="id_list_users">
 
+                    </ul>
                 </div>
             </div>
         </div>
